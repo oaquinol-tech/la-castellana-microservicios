@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  postgres_db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: castellana_db
+    ports:
+      - "5432:5432"
+
+  redis_cache:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  auth_service:
+    build:
+      context: .
+      dockerfile: docker/auth/Dockerfile
+
+  catalogo_service:
+    build:
+      context: .
+      dockerfile: docker/catalogo/Dockerfile
+    depends_on:
+      - postgres_db
+
+  pedidos_service:
+    build:
+      context: .
+      dockerfile: docker/pedidos/Dockerfile
+
+  pagos_service:
+    build:
+      context: .
+      dockerfile: docker/pagos/Dockerfile
