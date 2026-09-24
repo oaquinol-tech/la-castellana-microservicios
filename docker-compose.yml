@@ -8,6 +8,11 @@ services:
       POSTGRES_DB: castellana_db
     ports:
       - "5432:5432"
+      # El volumen mapea nuestro archivo local hacia la carpeta mágica de Docker.
+      # Todo archivo .sql puesto en /docker-entrypoint-initdb.d/ se ejecuta automáticamente
+      # la primera vez que la base de datos arranca en limpio.
+    volumes:
+      - ./db-init/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
 
   redis_cache:
     image: redis:alpine
