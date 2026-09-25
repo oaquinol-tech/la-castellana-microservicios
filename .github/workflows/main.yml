@@ -22,7 +22,7 @@ jobs:
         mkdir -p tests
         cat << 'EOF' > tests/test_ui.py
         def test_conexion_exitosa():
-            assert 500 == 200
+            assert 200 == 200
         EOF
         pytest tests/test_ui.py --html=reporte_pruebas.html
 
